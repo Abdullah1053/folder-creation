@@ -19,13 +19,13 @@ services:
       - coolify.version=4.0.0-beta.370
       - coolify.applicationId=33
       - coolify.type=application
-      - coolify.name=folder-creator-rkw0wwkkogwoosgs0owwo0gg-104633223187
+      - coolify.name=folder-creator
       - coolify.pullRequestId=0
       - coolify.managed=true
       - coolify.version=4.0.0-beta.370
       - coolify.applicationId=34
       - coolify.type=application
-      - coolify.name=folder-creator-ogws80088okoww4cg4w8wso0-105519732674
+      - coolify.name=folder-creator
       - coolify.pullRequestId=0
       - traefik.enable=true
       - traefik.http.middlewares.gzip.compress=true

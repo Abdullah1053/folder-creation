@@ -8,38 +8,17 @@ services:
     ports:
       - '3000:3000'
     environment:
-      NODE_ENV: production
-      COOLIFY_BRANCH: '"main"'
-      COOLIFY_CONTAINER_NAME: '"folder-creator-ogws80088okoww4cg4w8wso0-105519732674"'
       COOLIFY_URL: 'http://folder-raw.sgcyemen.com'
       COOLIFY_FQDN: folder-raw.sgcyemen.com
     restart: unless-stopped
     labels:
-      - coolify.managed=true
-      - coolify.version=4.0.0-beta.370
-      - coolify.applicationId=33
-      - coolify.type=application
-      - coolify.name=folder-creator-rkw0wwkkogwoosgs0owwo0gg-104633223187
-      - coolify.pullRequestId=0
-      - coolify.managed=true
-      - coolify.version=4.0.0-beta.370
-      - coolify.applicationId=34
-      - coolify.type=application
-      - coolify.name=folder-creator-ogws80088okoww4cg4w8wso0-105519732674
-      - coolify.pullRequestId=0
-      - traefik.enable=true
-      - traefik.http.middlewares.gzip.compress=true
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.entryPoints=http
-      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.middlewares=gzip
-      - 'traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.rule=Host(`folder-raw.sgcyemen.com`) && PathPrefix(`/`)'
       - 'caddy_0.encode=zstd gzip'
       - 'caddy_0.handle_path.0_reverse_proxy={{upstreams}}'
       - 'caddy_0.handle_path=/*'
       - caddy_0.header=-Server
       - 'caddy_0.try_files={path} /index.html /index.php'
       - 'caddy_0=http://folder-raw.sgcyemen.com'
-      - caddy_ingress_network=ogws80088okoww4cg4w8wso0
+ 
     networks:
       ogws80088okoww4cg4w8wso0: null
 volumes:

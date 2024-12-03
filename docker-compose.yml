@@ -2,7 +2,7 @@ services:
   folder-creator:
     build:
       context: .
-    container_name: folder-creator-ogws80088okoww4cg4w8wso0-105519732674
+    container_name: folder-creator
     volumes:
       - 'shared_volume:/shared'
     ports:
@@ -18,15 +18,9 @@ services:
       - caddy_0.header=-Server
       - 'caddy_0.try_files={path} /index.html /index.php'
       - 'caddy_0=http://folder-raw.sgcyemen.com'
- 
-    networks:
-      ogws80088okoww4cg4w8wso0: null
 volumes:
   shared_volume:
     external: true
-  networks:
-  ogws80088okoww4cg4w8wso0:
-    name: ogws80088okoww4cg4w8wso0
-    external: true
+
 configs: {  }
 secrets: {  }

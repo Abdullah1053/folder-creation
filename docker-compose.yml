@@ -11,8 +11,8 @@ services:
       NODE_ENV: production
       COOLIFY_BRANCH: '"main"'
       COOLIFY_CONTAINER_NAME: '"folder-creator"'
-      COOLIFY_URL: 'http://folder-raw.sgcyemen.com'
-      COOLIFY_FQDN: folder-raw.sgcyemen.com
+      COOLIFY_URL: 'http://folder-raw.sgcyemen.com:3001'
+      COOLIFY_FQDN: 'folder-raw.sgcyemen.com:3001'
     restart: unless-stopped
     labels:
       - coolify.managed=true
@@ -35,6 +35,26 @@ services:
       - 'traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.rule=Host(`folder-raw.sgcyemen.com`) && PathPrefix(`/`)'
       - 'caddy_0.encode=zstd gzip'
       - 'caddy_0.handle_path.0_reverse_proxy={{upstreams}}'
+      - 'caddy_0.handle_path=/*'
+      - caddy_0.header=-Server
+      - 'caddy_0.try_files={path} /index.html /index.php'
+      - 'caddy_0=http://folder-raw.sgcyemen.com'
+      - coolify.managed=true
+      - coolify.version=4.0.0-beta.370
+      - coolify.applicationId=34
+      - coolify.type=application
+      - coolify.name=folder-creator-ogws80088okoww4cg4w8wso0-112043478605
+      - coolify.pullRequestId=0
+      - traefik.enable=true
+      - traefik.http.middlewares.gzip.compress=true
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.entryPoints=http
+      - 'traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.middlewares=gzip,gzip,redirect-to-https'
+      - 'traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.rule=Host(`folder-raw.sgcyemen.com`) && PathPrefix(`/`)'
+      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.service=http-0-ogws80088okoww4cg4w8wso0-folder-creator
+      - traefik.http.services.http-0-ogws80088okoww4cg4w8wso0-folder-creator.loadbalancer.server.port=3001
+      - 'caddy_0.encode=zstd gzip'
+      - 'caddy_0.handle_path.0_reverse_proxy={{upstreams 3001}}'
       - 'caddy_0.handle_path=/*'
       - caddy_0.header=-Server
       - 'caddy_0.try_files={path} /index.html /index.php'

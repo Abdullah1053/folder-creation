@@ -5,8 +5,8 @@ services:
     container_name: folder-creator
     volumes:
       - 'shared_volume:/shared'
-    ports:
-      - '3000:3000'
+    # ports:
+    #   - '3000:3000'
     environment:
       COOLIFY_URL: 'http://folder-raw.sgcyemen.com'
       COOLIFY_FQDN: folder-raw.sgcyemen.com

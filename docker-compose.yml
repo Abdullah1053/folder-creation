@@ -1,66 +1,51 @@
+version: '3.8'
+
 services:
   folder-creator:
     build:
       context: .
     container_name: folder-creator
     volumes:
-      - 'shared_volume:/shared'
+      - shared_volume:/shared
     ports:
-      - '3001:3001'
+      - "3000:3000"
     environment:
-      NODE_ENV: production
-      COOLIFY_BRANCH: '"main"'
-      COOLIFY_CONTAINER_NAME: '"folder-creator"'
-      COOLIFY_URL: 'http://folder-raw.sgcyemen.com:3001'
-      COOLIFY_FQDN: 'folder-raw.sgcyemen.com:3001'
+      - NODE_ENV=production
+      - COOLIFY_BRANCH="main"
+      - COOLIFY_CONTAINER_NAME="folder-creator"
+      - COOLIFY_URL=http://super-taida.sgcyemen.com:3000
+      - COOLIFY_FQDN=super-taida.sgcyemen.com:3000
     restart: unless-stopped
     labels:
       - coolify.managed=true
       - coolify.version=4.0.0-beta.370
-      - coolify.applicationId=33
+      - coolify.applicationId=31
       - coolify.type=application
-      - coolify.name=folder-creator-rkw0wwkkogwoosgs0owwo0gg-104633223187
-      - coolify.pullRequestId=0
-      - coolify.managed=true
-      - coolify.version=4.0.0-beta.370
-      - coolify.applicationId=34
-      - coolify.type=application
-      - coolify.name=folder-creator-ogws80088okoww4cg4w8wso0-105519732674
+      - coolify.name=folder-creator
       - coolify.pullRequestId=0
       - traefik.enable=true
       - traefik.http.middlewares.gzip.compress=true
       - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.entryPoints=http
-      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.middlewares=gzip
-      - 'traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.rule=Host(`folder-raw.sgcyemen.com`) && PathPrefix(`/`)'
+      - traefik.http.routers.http-0-folder-creator.entryPoints=http
+      - traefik.http.routers.http-0-folder-creator.middlewares=gzip
+      - 'traefik.http.routers.http-0-folder-creator.rule=Host(`super-taida.sgcyemen.com`) && PathPrefix(`/`)'
+      - traefik.http.routers.http-0-folder-creator.service=http-0-folder-creator
+      - traefik.http.services.http-0-folder-creator.loadbalancer.server.port=3000
       - 'caddy_0.encode=zstd gzip'
-      - 'caddy_0.handle_path.0_reverse_proxy={{upstreams}}'
+      - 'caddy_0.handle_path.0_reverse_proxy={{upstreams 3000}}'
       - 'caddy_0.handle_path=/*'
       - caddy_0.header=-Server
       - 'caddy_0.try_files={path} /index.html /index.php'
-      - 'caddy_0=http://folder-raw.sgcyemen.com'
-      - coolify.managed=true
-      - coolify.version=4.0.0-beta.370
-      - coolify.applicationId=34
-      - coolify.type=application
-      - coolify.name=folder-creator-ogws80088okoww4cg4w8wso0-112043478605
-      - coolify.pullRequestId=0
-      - traefik.enable=true
-      - traefik.http.middlewares.gzip.compress=true
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.entryPoints=http
-      - 'traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.middlewares=gzip,gzip,redirect-to-https'
-      - 'traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.rule=Host(`folder-raw.sgcyemen.com`) && PathPrefix(`/`)'
-      - traefik.http.routers.http-0-ogws80088okoww4cg4w8wso0-folder-creator.service=http-0-ogws80088okoww4cg4w8wso0-folder-creator
-      - traefik.http.services.http-0-ogws80088okoww4cg4w8wso0-folder-creator.loadbalancer.server.port=3001
-      - 'caddy_0.encode=zstd gzip'
-      - 'caddy_0.handle_path.0_reverse_proxy={{upstreams 3001}}'
-      - 'caddy_0.handle_path=/*'
-      - caddy_0.header=-Server
-      - 'caddy_0.try_files={path} /index.html /index.php'
-      - 'caddy_0=http://folder-raw.sgcyemen.com'
+      - 'caddy_0=http://super-taida.sgcyemen.com'
+      - caddy_ingress_network=ycg4k840cwowggw8s0co0scs
+    networks:
+      ycg4k840cwowggw8s0co0scs:
+
 volumes:
   shared_volume:
     external: true
-configs: {  }
-secrets: {  }
+
+networks:
+  ycg4k840cwowggw8s0co0scs:
+    name: ycg4k840cwowggw8s0co0scs
+    external: true

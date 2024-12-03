@@ -1,18 +1,28 @@
-version: '3.8'
-
 services:
   folder-creator:
     build:
       context: .
-    container_name: folder-creator
+    container_name: folder-creator-rkw0wwkkogwoosgs0owwo0gg-104633223187
     volumes:
-      - shared_volume:/shared
+      - 'shared_volume:/shared'
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
-      - NODE_ENV=production
-
+      NODE_ENV: production
+      COOLIFY_BRANCH: '"main"'
+      COOLIFY_CONTAINER_NAME: '"folder-creator-rkw0wwkkogwoosgs0owwo0gg-104633223187"'
+    restart: unless-stopped
+    labels:
+      - coolify.managed=true
+      - coolify.version=4.0.0-beta.370
+      - coolify.applicationId=33
+      - coolify.type=application
+      - coolify.name=folder-creator-rkw0wwkkogwoosgs0owwo0gg-104633223187
+      - coolify.pullRequestId=0
+    networks:
+      rkw0wwkkogwoosgs0owwo0gg: null
 volumes:
   shared_volume:
     external: true
-# run this to create the volume : docker volume create shared_volume
+configs: {  }
+secrets: {  }
